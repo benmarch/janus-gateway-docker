@@ -16,21 +16,39 @@ ADD build /root/build
 ADD conf /etc/janus
 
 # install janus
-RUN /root/build/base.sh         # make gcc etc.
-RUN /root/build/usrsctp.sh      # data channel support
-RUN /root/build/libwebsock.sh   # websocket support
-# RUN /root/build/rabbitmq.sh     # rabbitmq support
-RUN /root/build/janus.sh        # janus
+
+# make gcc etc:
+RUN /root/build/base.sh
+
+# data channel support:
+RUN /root/build/usrsctp.sh
+
+# websocket support:
+RUN /root/build/libwebsock.sh
+
+# rabbitmq support:
+# RUN /root/build/rabbitmq.sh
+
+# janus:
+RUN /root/build/janus.sh
 
 # add the janus service
 RUN mkdir /etc/service/janus
 ADD services/janus.sh /etc/service/janus/run
 
 # expose janus http interface
-EXPOSE 8088  # janus http
-EXPOSE 8188  # janus websocket
-EXPOSE 7088  # janus admin
-EXPOSE 5002 5004 # janus streaming input
+
+# janus http:
+EXPOSE 8088
+
+# janus websocket:
+EXPOSE 8188
+
+# janus admin:
+EXPOSE 7088
+
+# janus streaming input:
+EXPOSE 5002 5004
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]

@@ -14,7 +14,7 @@ cd janus-gateway
     ./configure --prefix=/usr \
                 --disable-docs \
                 --disable-rabbitmq \
-                # --disable-websockets \
+                 --disable-websockets \
                 # --disable-data-channels \
                 #
 
